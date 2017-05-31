@@ -1,4 +1,4 @@
-# ANSIFormatter
+NSIFormatter
 ANSIFormatter is a simple tool for formatting terminal output using ANSI escape codes in Java.
 
 ### How to Build
@@ -19,3 +19,4 @@ java -jar ANSIFormatter.jar
 ### License
 
 This project is licensed under the MIT License - see the LICENSE.txt file for details.
+
