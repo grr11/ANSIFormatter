@@ -7,7 +7,7 @@ public class Format {
   private static final char ESC = (char) 27;
   private static final String START_SEQ = ESC + "[";
   private static final String END_SEQ = "m";
-  private static final String RESET_FORMAT = ESC + "0" + END_SEQ;
+  private static final String RESET_FORMAT = START_SEQ + "0" + END_SEQ;
 
   private String style = "";
   private String foregroundColor = Color.DEFAULT.foregroundCode;
@@ -38,10 +38,11 @@ public class Format {
     if (str == null || str.length() == 0)
       throw new IllegalArgumentException();
 
-    if (colors == null || colors.length == 0)
+    if (colors == null || colors.length == 0) {
       return escapeSequence + str + RESET_FORMAT;
+    }
     else {
-      StringBuilder stringBuilder = new StringBuilder(START_SEQ).append(escapeSequence);
+      StringBuilder stringBuilder = new StringBuilder(escapeSequence);
       int colorIndex = 0;
       char curChar;
       for (int i = 0; i < str.length(); i++) {
@@ -63,8 +64,9 @@ public class Format {
   /**
    * Makes this Format immutable.
    */
-  public void finalize() {
+  public Format freeze() {
     finalized = true;
+    return this;
   }
 
   /**
@@ -163,7 +165,7 @@ public class Format {
 
   /**
    * NOT WIDELY SUPPORTED. Blinks the text rapidly.
-   * SGR Code: 5
+   * SGR Code: 6
    *
    * @return this Format
    */
@@ -174,6 +176,7 @@ public class Format {
 
   /**
    * Swaps the foreground/background colors
+   * SGR Code: 7
    *
    * @return this Format
    */
@@ -184,6 +187,7 @@ public class Format {
 
   /**
    * NOT WIDELY SUPPORTED. Conceals the text.
+   * SGR Code: 8
    *
    * @return this Format
    */
@@ -194,6 +198,7 @@ public class Format {
 
   /**
    * NOT WIDELY SUPPORTED. Crosses out the text.
+   * SGR Code: 9
    *
    * @return this Format
    */
@@ -204,6 +209,7 @@ public class Format {
 
   /**
    * Frames the text.
+   * SGR Code: 51
    *
    * @return this Format
    */
@@ -214,6 +220,7 @@ public class Format {
 
   /**
    * Encircles the text.
+   * SGR Code: 52
    *
    * @return this Format
    */
@@ -224,6 +231,7 @@ public class Format {
 
   /**
    * Overlines the text
+   * SGR Code: 53
    *
    * @return this Format
    */
