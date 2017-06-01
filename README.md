@@ -32,7 +32,7 @@ Most terminal emulators only support a subset of the ANSI escape sequences. To s
 cd bin
 java -jar ANSIFormatter.jar
 ```
-![Alt Text](http://i.imgur.com/LY47FxN.png)
+![Alt Text](http://i.imgur.com/Uf3gNn4.png)
 
 ### License
 
