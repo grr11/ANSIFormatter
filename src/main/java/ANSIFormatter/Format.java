@@ -82,6 +82,34 @@ public class Format {
   }
 
   /**
+   * Sets the foreground to a custom color defined by rgb color channels.
+   * SGR Code: 38
+   *
+   * @param r The red color channel (0...255)
+   * @param g The green color channel (0...255)
+   * @param b The blue color channel (0...255)
+   * @return this Format
+   */
+  public Format foreground(int r, int g, int b) {
+    if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+      throw new IllegalArgumentException();
+    foregroundColor = "38;2;" + r + ";" + g + ";" + b;
+    return this;
+  }
+
+  /**
+   * Sets the foreground to a custom color defined by rgb color channels.
+   * SGR Code: 48
+   *
+   * @param rgb The RGB value for the color
+   * @return this Format
+   */
+  public Format foreground(RGB rgb) {
+    foregroundColor = "38;2;" + rgb.r + ";" + rgb.g + ";" + rgb.b;
+    return this;
+  }
+
+  /**
    * Sets the background to one of the 8 original colors specified by ANSI.
    * SGR Codes: 40-47
    *
@@ -94,7 +122,35 @@ public class Format {
   }
 
   /**
-   * Cycles through the given array of colors, one character for each color.
+   * Sets the background to a custom color defined by rgb color channels.
+   * SGR Code: 48
+   *
+   * @param r The red color channel (0...255)
+   * @param g The green color channel (0...255)
+   * @param b The blue color channel (0...255)
+   * @return this Format
+   */
+  public Format background(int r, int g, int b) {
+    if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+      throw new IllegalArgumentException();
+    backgroundColor = "48;2;" + r + ";" + g + ";" + b;
+    return this;
+  }
+
+  /**
+   * Sets the background to a custom color defined by rgb color channels.
+   * SGR Code: 48
+   *
+   * @param rgb The RGB value for the color
+   * @return this Format
+   */
+  public Format background(RGB rgb) {
+    backgroundColor = "48;2;" + rgb.r + ";" + rgb.g + ";" + rgb.b;
+    return this;
+  }
+
+  /**
+   * Cycles through the given array of rgb colors, one character for each color.
    * SGR Codes: 30-37
    *
    * @param colors The colors to be included
@@ -104,6 +160,21 @@ public class Format {
     this.colors = new String[colors.length];
     for (int i = 0; i < colors.length; i++) {
       this.colors[i] = colors[i].foregroundCode;
+    }
+    return this;
+  }
+
+  /**
+   * Cycles through the given array of rgb colors, one character for each color.
+   * SGR Code: 38
+   *
+   * @param rgb The colors to be included
+   * @return this Format
+   */
+  public Format alternating(RGB... rgb) {
+    this.colors = new String[rgb.length];
+    for (int i = 0; i < rgb.length; i++) {
+      this.colors[i] = "38;2;" + rgb[i].r + ";" + rgb[i].g + ";" + rgb[i].b;
     }
     return this;
   }
@@ -245,6 +316,16 @@ public class Format {
       this.style += ";" + style.code;
     else
       this.style = style.code;
+  }
+
+  public static class RGB {
+    final int r, g, b;
+
+    public RGB(int r, int g, int b) {
+      this.r = r;
+      this.g = g;
+      this.b = b;
+    }
   }
 
   /**

@@ -30,6 +30,32 @@ public class FormatTester {
       System.out.println(format.apply(color.toString()));
     }
 
+    System.out.println(("--------------------------------- rgb color test -------------------------------"));
+    Format.RGB[] rgb = new Format.RGB[1200];
+    int r = 255;
+    int g = 55;
+    int b = 55;
+    for (int i = 0; i < 6; i++) {
+      for (int j = 0; j < 200; j++) {
+        rgb[i * 200 + j] = new Format.RGB(r, g, b);
+        if (i == 0) g++;
+        if (i == 1) r--;
+        if (i == 2) b++;
+        if (i == 3) g--;
+        if (i == 4) r++;
+        if (i == 5) b--;
+      }
+    }
+    {
+      Format format = new Format()
+          .bright()
+          .alternating(rgb);
+      StringBuilder stringBuilder = new StringBuilder();
+      for (int i = 0; i < 15; i++)
+        stringBuilder.append("################################################################################\n");
+      System.out.println(format.apply(stringBuilder.toString()));
+    }
+
     System.out.println("------------------------------ faint background test --------------------------");
     for (Color color : Color.values()) {
       Format format = new Format()
