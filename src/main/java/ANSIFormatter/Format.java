@@ -63,6 +63,8 @@ public class Format {
 
   /**
    * Makes this Format immutable.
+   *
+   * @return this Format
    */
   public Format freeze() {
     finalized = true;
@@ -83,7 +85,7 @@ public class Format {
 
   /**
    * Sets the foreground to a custom color defined by rgb color channels.
-   * SGR Code: 38
+   * SGR Code: 38;2
    *
    * @param r The red color channel (0...255)
    * @param g The green color channel (0...255)
@@ -99,7 +101,7 @@ public class Format {
 
   /**
    * Sets the foreground to a custom color defined by rgb color channels.
-   * SGR Code: 48
+   * SGR Code: 38;2
    *
    * @param rgb The RGB value for the color
    * @return this Format
@@ -123,7 +125,7 @@ public class Format {
 
   /**
    * Sets the background to a custom color defined by rgb color channels.
-   * SGR Code: 48
+   * SGR Code: 48;2
    *
    * @param r The red color channel (0...255)
    * @param g The green color channel (0...255)
@@ -139,7 +141,7 @@ public class Format {
 
   /**
    * Sets the background to a custom color defined by rgb color channels.
-   * SGR Code: 48
+   * SGR Code: 48;2
    *
    * @param rgb The RGB value for the color
    * @return this Format
@@ -166,7 +168,7 @@ public class Format {
 
   /**
    * Cycles through the given array of rgb colors, one character for each color.
-   * SGR Code: 38
+   * SGR Code: 38;2
    *
    * @param rgb The colors to be included
    * @return this Format
@@ -318,6 +320,9 @@ public class Format {
       this.style = style.code;
   }
 
+  /**
+   * Encapsulates values for rgb color channels
+   */
   public static class RGB {
     final int r, g, b;
 
@@ -381,5 +386,4 @@ public class Format {
       this.code = code;
     }
   }
-
 }
